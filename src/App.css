@@ -1,38 +1,154 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+body {
+  /* backdrop-filter: grayscale(100%); */
+  background-image: url(../public/pexels-cottonbro-studio-3693108.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  backdrop-filter: hue-rotate(250deg);
   min-height: 100vh;
+  height: 100%;
+}
+
+:root {
+  font-size: 16px;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: rgb(83, 10, 143);
+  opacity: 0.5;
+  z-index: -2;
+}
+
+body h1 {
+  margin: 0;
+}
+
+.header {
+  background-color: rgb(16, 9, 31);
+  color: white;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.heading-color {
+  color: rgb(121, 48, 255);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.login-modal {
+  margin-top: 5rem;
+  position: relative;
   display: flex;
   flex-direction: column;
+  /* justify-content: center; */
+  background-color: rgb(172, 128, 255);
+  /* padding: 2rem; */
+  border-radius: 1rem;
+  max-width: 23rem;
+  height: 33rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
+  /* z-index: -2; */
+  filter: drop-shadow(0 0 0.75rem rgb(29, 1, 37));
 }
 
-.App-link {
-  color: #61dafb;
+.login-blurb {
+  max-width: 18rem;
+  text-align: center;
+  font-size: 1.25rem;
+  margin-top: 2.1rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.login-button {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: rgb(133, 71, 248);
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 2rem;
+  cursor: pointer;
+  width: 75%;
+  bottom: 7rem;
+  z-index: 20;
+  cursor: pointer;
+}
+
+.welcome-bottom-bg {
+  border-bottom-left-radius: 0.875rem;
+  border-bottom-right-radius: 0.875rem;
+  bottom: 0px;
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  height: 26%;
+  width: 100%;
+  z-index: 2;
+}
+
+.link-icon {
+  width: 2rem;
+  height: 2.5rem;
+  margin-right: 0.5rem;
+}
+
+.spotify-logo {
+  width: 8rem;
+  height: 8rem;
+  margin-top: 2.5rem;
+}
+
+.welcome {
+  margin-top: 1.5rem;
+  font-weight: 600;
+  background-color: rgba(148, 96, 216, 0.699);
+  padding: 0.5rem 2rem;
+  border-radius: 50vh;
+}
+
+.test {
+  position: absolute;
+  z-index: 3;
+  bottom: 1.9rem;
+  font-weight: 600;
+  font-size: 1.4rem;
+  color: rgba(17, 0, 32, 0.863);
+  cursor: pointer;
+}
+
+.logout-button {
+  position: absolute;
+  font-weight: 600;
+  right: 5rem;
+  top: 2.4rem;
+  background-color: rgb(52, 42, 145);
+  border: none;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 50vh;
+  /* bottom: 1.9rem;
+  font-weight: 600;
+  font-size: 1.4rem;
+  color: rgba(17, 0, 32, 0.863);
+  cursor: pointer; */
 }

@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-import logo from "./logo.svg";
+import React, { useEffect, useState, useCallback } from "react";
 import "./App.css";
+import Header from "./components/Header/Header";
+import Login from "./components/Header/Login";
 
 function App() {
   const [currentToken, setCurrentToken] = useState();
 
   const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [callBack, setCallback] = useState(true);
   const [expiration, setExpiration] = useState("");
   const [expired, setExpired] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const clientId = process.env.REACT_APP_CLIENT_ID;
   const redirectUrl = process.env.REACT_APP_REDIRECT_URL;
@@ -19,9 +19,19 @@ function App() {
   const tokenEndpoint = "https://accounts.spotify.com/api/token";
   const scope = "user-read-private user-read-email";
 
+  // Declare callbacks for useEffects
+  const getUserDataCB = useCallback(getUserData, [currentToken]);
+  const getTokenCB = useCallback(getToken, [clientId, redirectUrl]);
+  const testLoggedInCB = useCallback(testLoggedIn, [
+    currentToken,
+    error,
+    getUserDataCB,
+  ]);
+  const testExpirationCB = useCallback(testExpiration, [expiration]);
+
   useEffect(() => {
     const testLocalToken = localStorage.getItem("access_token");
-    if (testLocalToken && testExpiration()) {
+    if (testLocalToken && !expired) {
       const data = {
         refresh_token: localStorage.getItem("refresh_token"),
         access_token: localStorage.getItem("access_token"),
@@ -33,7 +43,7 @@ function App() {
 
       setCurrentToken(data);
     }
-  }, []);
+  }, [expired]);
 
   useEffect(() => {
     async function testSpotifyConnection() {
@@ -43,11 +53,11 @@ function App() {
       const testLocalToken = localStorage.getItem("access_token");
 
       // If code is found, we're in a callback, do a token exchange (once)
-      if (code && callBack && !expired) {
-        const token = await getToken(code);
+      if (code && !expired && !testLocalToken) {
+        // const token = await getToken(code);
+        const token = await getTokenCB(code);
         setCurrentToken(token);
         console.log(token);
-        setCallback(false);
 
         localStorage.setItem("access_token", token.access_token);
         localStorage.setItem("refresh_token", token.refresh_token);
@@ -68,12 +78,12 @@ function App() {
     }
 
     testSpotifyConnection();
-  }, [expired]);
+  }, [expired, getTokenCB]);
 
   useEffect(() => {
-    testLoggedIn();
-    testExpiration();
-  }, [currentToken]);
+    testLoggedInCB();
+    testExpirationCB();
+  }, [currentToken, testLoggedInCB, testExpirationCB]);
 
   async function redirectToSpotifyAuthorize() {
     const possible =
@@ -189,13 +199,13 @@ function App() {
   async function testLoggedIn() {
     if (currentToken) {
       try {
-        // console.log(currentToken);
-        const usersData = await getUserData();
+        const usersData = await getUserDataCB();
         setUserData(usersData);
-        setLoading(false);
+        setLoggedIn(true);
+        // setLoading(false);
       } catch (e) {
         setError(error);
-        setLoading(false);
+        // setLoading(false);
       }
     }
   }
@@ -207,7 +217,7 @@ function App() {
       const expiredTest = now >= expires;
       if (expiredTest) {
         setExpired(true);
-        setLoading(false);
+        // setLoading(false);
         return true;
       }
       return false;
@@ -222,43 +232,29 @@ function App() {
     }
   }
 
-  // If everything is retrieved successfully
-  if (userData && !userData.error && !expired) {
-    if (!userData.error) {
-      return (
-        <div>
+  return (
+    <>
+      <Header loggedIn={loggedIn} logoutClick={logoutClick} />
+      {userData && !userData.error && !expired && (
+        <>
           <h1>Hello</h1>
           <button onClick={logoutClick}>Log Out</button>
-        </div>
-      );
-    } else {
-      return (
-        <div>
+        </>
+      )}
+      {userData && userData.error && (
+        <>
           <h1>{userData.error.message}</h1>
+        </>
+      )}
+      {!currentToken && <Login handleLogin={loginWithSpotifyClick} />}
+      {expired && (
+        <div>
+          <h1>Expired</h1>
+          <button onClick={refreshTokenClick}>Refresh token</button>
         </div>
-      );
-    }
-  }
-
-  // If no token exists in our state
-  if (!currentToken) {
-    return <button onClick={loginWithSpotifyClick}>Log in</button>;
-  }
-
-  // If our token is expired
-  if (expired) {
-    return (
-      <div>
-        <h1>Expired</h1>
-        <button onClick={refreshTokenClick}>Refresh token</button>
-      </div>
-    );
-  }
-
-  // If content is loading
-  if (loading) {
-    return <h1>loading...</h1>;
-  }
+      )}
+    </>
+  );
 }
 
 export default App;
