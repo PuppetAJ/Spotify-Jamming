@@ -22,7 +22,7 @@ function Login({ handleLogin }) {
       <button className="login-button" onClick={handleLogin}>
         <Link1Icon className="link-icon" /> Link Spotify
       </button>
-      <p className="test" onClick={showInfo}>
+      <p className="information" onClick={showInfo}>
         INFORMATION
       </p>
       <div className="welcome-bottom-bg"></div>

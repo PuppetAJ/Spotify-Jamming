@@ -54,16 +54,13 @@ body h1 {
   position: relative;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   background-color: rgb(172, 128, 255);
-  /* padding: 2rem; */
   border-radius: 1rem;
   max-width: 23rem;
   height: 33rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   align-items: center;
   color: white;
-  /* z-index: -2; */
   filter: drop-shadow(0 0 0.75rem rgb(29, 1, 37));
 }
 
@@ -92,6 +89,11 @@ body h1 {
   bottom: 7rem;
   z-index: 20;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-button:hover {
+  background-color: rgb(111, 40, 245);
 }
 
 .welcome-bottom-bg {
@@ -120,12 +122,12 @@ body h1 {
 .welcome {
   margin-top: 1.5rem;
   font-weight: 600;
-  background-color: rgba(148, 96, 216, 0.699);
+  background-color: rgba(131, 89, 185, 0.699);
   padding: 0.5rem 2rem;
   border-radius: 50vh;
 }
 
-.test {
+.information {
   position: absolute;
   z-index: 3;
   bottom: 1.9rem;
@@ -133,6 +135,11 @@ body h1 {
   font-size: 1.4rem;
   color: rgba(17, 0, 32, 0.863);
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.information:hover {
+  color: rgb(108, 0, 209);
 }
 
 .logout-button {
@@ -146,9 +153,182 @@ body h1 {
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
   border-radius: 50vh;
-  /* bottom: 1.9rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.logout-button:hover {
+  background-color: rgb(121, 48, 255);
+}
+
+.result-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: 2rem;
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 25rem;
+  margin-top: 5rem;
+}
+
+.search-bar {
+  padding: 0.75rem 1rem;
+  width: 100%;
+  filter: drop-shadow(0 0 0.75rem rgba(29, 1, 37, 0.507));
+}
+
+.search-button {
+  text-transform: uppercase;
+  margin-top: 1.5rem;
+  padding: 0.7rem 2rem;
+  background-color: rgb(16, 9, 31);
+  color: white;
+  border: none;
+  border-radius: 50vh;
+  cursor: pointer;
+  max-width: 10rem;
+  transition: 0.3s;
+  font-size: 1rem;
   font-weight: 600;
-  font-size: 1.4rem;
-  color: rgba(17, 0, 32, 0.863);
-  cursor: pointer; */
+  letter-spacing: 0.5px;
+}
+
+.search-button:hover {
+  background-color: rgb(121, 48, 255);
+}
+
+.song-list-container {
+  margin-top: 2rem;
+  background-color: rgba(16, 9, 31, 0.61);
+  padding: 2rem;
+  color: white;
+  flex: 2;
+  min-height: 40rem;
+}
+
+.song-list-heading {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.song-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.song-list-item-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.song-list-icon {
+  margin-top: 1rem;
+  font-size: 2rem;
+  margin-left: 2rem;
+  cursor: pointer;
+  transition: 0.3s;
+  background: none;
+  border: none;
+  color: white;
+}
+
+.song-list-icon:hover {
+  color: rgb(179, 156, 223);
+}
+
+.song-list-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.song-list-artist-container {
+  display: flex;
+}
+
+.song-list-artist {
+  opacity: 0.5;
+  margin-top: 0.5rem;
+}
+
+.song-list-artist::after {
+  content: "|";
+  margin: 0.5rem;
+}
+
+.song-list-artist:last-child::after {
+  content: "";
+}
+
+.song-list-line {
+  opacity: 0.55;
+}
+
+.search-main {
+  padding: 5rem 2rem;
+}
+
+.add-playlist-container {
+  /* display: flex;
+  flex-direction: column; */
+  margin-top: 2rem;
+  background-color: rgba(16, 9, 31, 0.61);
+  padding: 2rem;
+  flex: 1;
+  color: white;
+}
+
+.add-playlist-input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.514);
+  width: 100%;
+  color: white;
+  padding: 1rem;
+  font-size: 1.5rem;
+  /* text-align: center; */
+  padding-bottom: 0.5rem;
+  padding-left: 0rem;
+}
+
+.add-playlist-input:focus {
+  outline: none;
+  /* border-bottom: 1px solid white; */
+}
+
+.add-playlist-form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.add-playlist-button {
+  padding: 0.7rem 2rem;
+  background-color: rgb(133, 71, 248);
+  color: white;
+  border: none;
+  border-radius: 50vh;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-wrap: nowrap;
+  margin-top: 1rem;
+}
+
+.add-playlist-button:hover {
+  background-color: rgb(86, 2, 243);
 }

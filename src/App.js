@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useCallback } from "react";
 import "./App.css";
-import Header from "./components/Header/Header";
-import Login from "./components/Header/Login";
+import Header from "./components/Header";
+import Login from "./components/Login";
+import SearchForm from "./components/SearchForm";
+import ResultContainer from "./containers/ResultContainer";
 
 function App() {
   const [currentToken, setCurrentToken] = useState();
@@ -11,6 +13,10 @@ function App() {
   const [expiration, setExpiration] = useState("");
   const [expired, setExpired] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [formInput, setFormInput] = useState("");
+  const [trackResponse, setTrackResponse] = useState([]);
+  const [userPlaylistData, setUserPlaylistData] = useState([]);
+  const [userPlaylistName, setUserPlaylistName] = useState("");
 
   const clientId = process.env.REACT_APP_CLIENT_ID;
   const redirectUrl = process.env.REACT_APP_REDIRECT_URL;
@@ -232,14 +238,62 @@ function App() {
     }
   }
 
+  const formSubmit = async (e) => {
+    e.preventDefault();
+    setFormInput("");
+    const endpoint = `https://api.spotify.com/v1/search?q=${formInput}&type=track&limit=10`;
+    await fetch(endpoint, {
+      headers: { Authorization: "Bearer " + currentToken.access_token },
+    })
+      .then(async (response) => {
+        const res = await response.json();
+        setTrackResponse(res.tracks);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
+  const handleAddToPlaylist = (e) => {
+    setUserPlaylistData((prev) => [
+      ...prev,
+      trackResponse.items[e.target.value],
+    ]);
+    console.log(userPlaylistData);
+  };
+
+  // const handlePlaylistName = () => {
+
+  // };
+  const handleRemoveFromPlaylist = (e) => {
+    e.preventDefault();
+    const index = parseInt(e.target.value);
+    const newPlaylist = userPlaylistData.filter((_, i) => {
+      return i !== index;
+    });
+    setUserPlaylistData(newPlaylist);
+    console.log(userPlaylistData);
+  };
+
   return (
     <>
       <Header loggedIn={loggedIn} logoutClick={logoutClick} />
       {userData && !userData.error && !expired && (
-        <>
-          <h1>Hello</h1>
-          <button onClick={logoutClick}>Log Out</button>
-        </>
+        <main className="search-main">
+          <SearchForm
+            formSubmit={formSubmit}
+            formInput={formInput}
+            setFormInput={setFormInput}
+          />
+          <ResultContainer
+            trackResponse={trackResponse}
+            handleAddToPlaylist={handleAddToPlaylist}
+            userPlaylistData={userPlaylistData}
+            setUserPlaylistName={setUserPlaylistName}
+            userPlaylistName={userPlaylistName}
+            handleRemoveFromPlaylist={handleRemoveFromPlaylist}
+          />
+        </main>
       )}
       {userData && userData.error && (
         <>
