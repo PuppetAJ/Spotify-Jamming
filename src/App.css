@@ -388,3 +388,30 @@ body h1 {
 .refresh-button:hover {
   background-color: rgb(86, 2, 243);
 }
+
+.song-list-nav {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: 1.25rem;
+}
+
+.song-list-nav-button {
+  padding: 0.7rem 2rem;
+  background-color: rgb(133, 71, 248);
+  color: white;
+  border: none;
+  border-radius: 50vh;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-wrap: nowrap;
+  margin-top: 1rem;
+}
+
+.song-list-nav-button:hover {
+  background-color: rgb(86, 2, 243);
+}

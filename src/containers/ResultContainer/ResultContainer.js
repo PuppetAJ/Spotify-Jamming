@@ -11,6 +11,8 @@ function ResultContainer({
   handleRemoveFromPlaylist,
   songs,
   setSongs,
+  handleSavePlaylist,
+  handleSongListNav,
 }) {
   return (
     <div className="result-container container">
@@ -19,12 +21,14 @@ function ResultContainer({
         handleAddToPlaylist={handleAddToPlaylist}
         songs={songs}
         setSongs={setSongs}
+        handleSongListNav={handleSongListNav}
       />
       <AddPlaylist
         userPlaylistData={userPlaylistData}
         setUserPlaylistName={setUserPlaylistName}
         userPlaylistName={userPlaylistName}
         handleRemoveFromPlaylist={handleRemoveFromPlaylist}
+        handleSavePlaylist={handleSavePlaylist}
       />
     </div>
   );

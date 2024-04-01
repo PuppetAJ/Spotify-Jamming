@@ -23,6 +23,8 @@ function ContentContainer({
   expired,
   songs,
   setSongs,
+  handleSavePlaylist,
+  handleSongListNav,
 }) {
   return (
     <>
@@ -47,6 +49,8 @@ function ContentContainer({
             handleRemoveFromPlaylist={handleRemoveFromPlaylist}
             songs={songs}
             setSongs={setSongs}
+            handleSavePlaylist={handleSavePlaylist}
+            handleSongListNav={handleSongListNav}
           />
         </main>
       )}

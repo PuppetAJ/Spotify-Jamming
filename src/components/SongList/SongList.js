@@ -1,6 +1,12 @@
 import React, { useEffect } from "react";
 
-function SongList({ trackResponse, handleAddToPlaylist, songs, setSongs }) {
+function SongList({
+  trackResponse,
+  handleAddToPlaylist,
+  songs,
+  setSongs,
+  handleSongListNav,
+}) {
   useEffect(() => {
     if (trackResponse === undefined) return;
     setSongs(trackResponse.items);
@@ -34,11 +40,32 @@ function SongList({ trackResponse, handleAddToPlaylist, songs, setSongs }) {
                   +
                 </button>
               </div>
-              {i < songs.length - 1 && <hr className="song-list-line" />}
+              {/* {i < songs.length - 1 && <hr className="song-list-line" />} */}
+              <hr className="song-list-line" />
             </li>
           ))}
         </ul>
       )}
+      <div className="song-list-nav">
+        {songs && trackResponse.previous && (
+          <button
+            className="song-list-nav-button"
+            value="previous"
+            onClick={handleSongListNav}
+          >
+            Prev
+          </button>
+        )}
+        {songs && trackResponse.next && (
+          <button
+            className="song-list-nav-button"
+            value="next"
+            onClick={handleSongListNav}
+          >
+            Next
+          </button>
+        )}
+      </div>
     </div>
   );
 }

@@ -5,10 +5,11 @@ function AddPlaylist({
   setUserPlaylistName,
   userPlaylistName,
   handleRemoveFromPlaylist,
+  handleSavePlaylist,
 }) {
   return (
     <div className="add-playlist-container">
-      <form className="add-playlist-form">
+      <form onSubmit={handleSavePlaylist} className="add-playlist-form">
         <input
           data-testid="playlist-name"
           type="text"
