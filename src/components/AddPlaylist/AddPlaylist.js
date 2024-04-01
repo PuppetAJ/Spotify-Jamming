@@ -10,6 +10,7 @@ function AddPlaylist({
     <div className="add-playlist-container">
       <form className="add-playlist-form">
         <input
+          data-testid="playlist-name"
           type="text"
           className="add-playlist-input"
           placeholder="Playlist Name"

@@ -4,6 +4,7 @@ function SearchForm({ formSubmit, setFormInput, formInput }) {
   return (
     <form onSubmit={formSubmit} className="search-form container">
       <input
+        data-testid="search-input"
         type="text"
         className="search-bar"
         placeholder="Search for a song..."

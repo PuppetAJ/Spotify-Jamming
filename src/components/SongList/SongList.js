@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
-function SongList({ trackResponse, handleAddToPlaylist }) {
-  const [songs, setSongs] = useState([]);
-
+function SongList({ trackResponse, handleAddToPlaylist, songs, setSongs }) {
   useEffect(() => {
+    if (trackResponse === undefined) return;
     setSongs(trackResponse.items);
-  }, [songs, trackResponse.items]);
+  }, [songs, setSongs, trackResponse]);
 
   return (
     <div className="song-list-container">
       <h1 className="song-list-heading">Results</h1>
+      {songs && !songs.length && <h3 className="song-list-name">No results</h3>}
       {!songs && <h3 className="song-list-name">No results</h3>}
       {songs && (
         <ul className="song-list">

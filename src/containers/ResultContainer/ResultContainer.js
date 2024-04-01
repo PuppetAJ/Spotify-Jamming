@@ -1,6 +1,6 @@
 import React from "react";
-import SongList from "../components/SongList";
-import AddPlaylist from "../components/AddPlaylist";
+import SongList from "../../components/SongList/SongList";
+import AddPlaylist from "../../components/AddPlaylist/AddPlaylist";
 
 function ResultContainer({
   trackResponse,
@@ -9,12 +9,16 @@ function ResultContainer({
   setUserPlaylistName,
   userPlaylistName,
   handleRemoveFromPlaylist,
+  songs,
+  setSongs,
 }) {
   return (
     <div className="result-container container">
       <SongList
         trackResponse={trackResponse}
         handleAddToPlaylist={handleAddToPlaylist}
+        songs={songs}
+        setSongs={setSongs}
       />
       <AddPlaylist
         userPlaylistData={userPlaylistData}
